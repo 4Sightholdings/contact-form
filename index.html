@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4Sight – Contact Us</title>
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --brand: #143074;
+            --brand-light: rgba(20, 48, 116, 0.12);
+            --brand-glow: rgba(20, 48, 116, 0.35);
+            --brand-dark: #0e2259;
+            --bg: #ffffff;
+            --input-bg: rgba(20, 48, 116, 0.03);
+            --input-border: rgba(20, 48, 116, 0.25);
+            --input-focus: rgba(20, 48, 116, 0.5);
+            --text-primary: #1a1a2e;
+            --text-secondary: #143074;
+            --text-muted: rgba(30, 40, 60, 0.45);
+            --error: #e53935;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            color: var(--text-primary);
+        }
+
+        .bg-layer {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--brand);
+            opacity: 0;
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+            10%  { opacity: .35; }
+            90%  { opacity: .35; }
+            100% { transform: translateY(-20vh) scale(1); opacity: 0; }
+        }
+
+        .scanline {
+            position: fixed;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--brand-glow), transparent);
+            animation: scan 6s ease-in-out infinite;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @keyframes scan {
+            0%, 100% { top: -2px; opacity: 0; }
+            10%      { opacity: .5; }
+            90%      { opacity: .5; }
+            50%      { top: 100%; }
+        }
+
+        .form-wrapper {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 580px;
+            margin: 40px 20px;
+            padding: 48px 40px 36px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+
+        .heading-text {
+            font-size: 34px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--brand);
+            text-shadow:
+                0 0 10px rgba(20, 48, 116, 0.25),
+                0 0 30px rgba(20, 48, 116, 0.12),
+                0 0 60px rgba(20, 48, 116, 0.06);
+            animation: textGlow 3s ease-in-out infinite;
+            margin-bottom: 8px;
+        }
+
+        @keyframes textGlow {
+            0%, 100% {
+                text-shadow:
+                    0 0 10px rgba(20, 48, 116, 0.25),
+                    0 0 30px rgba(20, 48, 116, 0.12),
+                    0 0 60px rgba(20, 48, 116, 0.06);
+            }
+            50% {
+                text-shadow:
+                    0 0 15px rgba(20, 48, 116, 0.4),
+                    0 0 40px rgba(20, 48, 116, 0.2),
+                    0 0 80px rgba(20, 48, 116, 0.1),
+                    0 0 100px rgba(20, 48, 116, 0.05);
+            }
+        }
+
+        .subtitle {
+            font-size: 14px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .divider {
+            width: 80px;
+            height: 1px;
+            margin: 20px auto 0;
+            background: linear-gradient(90deg, transparent, var(--brand), transparent);
+        }
+
+        .field {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 13px 16px;
+            background: var(--input-bg);
+            border: 1px solid var(--input-border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            transition: all .3s ease;
+            outline: none;
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        input:focus, textarea:focus {
+            border-color: var(--input-focus);
+            background: rgba(20, 48, 116, 0.05);
+            box-shadow: 0 0 16px rgba(20, 48, 116, 0.1);
+        }
+
+        input.invalid, textarea.invalid {
+            border-color: var(--error);
+            box-shadow: 0 0 10px rgba(229, 57, 53, 0.15);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .privacy-text {
+            font-size: 12.5px;
+            line-height: 1.7;
+            color: var(--text-muted);
+            margin: 20px 0 22px;
+            padding: 14px 16px;
+            border-left: 2px solid rgba(20, 48, 116, 0.3);
+            background: rgba(20, 48, 116, 0.02);
+            border-radius: 0 6px 6px 0;
+        }
+
+        .privacy-text a {
+            color: var(--brand);
+            text-decoration: none;
+            border-bottom: 1px dotted rgba(20, 48, 116, 0.4);
+        }
+
+        .privacy-text a:hover {
+            color: var(--brand-dark);
+            border-bottom-color: var(--brand-dark);
+        }
+
+        .consent {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 28px;
+            cursor: pointer;
+        }
+
+        .consent input[type="checkbox"] {
+            display: none;
+        }
+
+        .checkmark {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            border: 1.5px solid var(--input-border);
+            border-radius: 4px;
+            background: var(--input-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .25s;
+            margin-top: 2px;
+        }
+
+        .consent input:checked + .checkmark {
+            border-color: var(--brand);
+            background: rgba(20, 48, 116, 0.15);
+            box-shadow: 0 0 10px rgba(20, 48, 116, 0.15);
+        }
+
+        .checkmark::after {
+            content: '';
+            width: 5px;
+            height: 10px;
+            border: solid var(--brand);
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg) scale(0);
+            transition: transform .2s;
+        }
+
+        .consent input:checked + .checkmark::after {
+            transform: rotate(45deg) scale(1);
+        }
+
+        .consent-text {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .consent.invalid .checkmark {
+            border-color: var(--error);
+            box-shadow: 0 0 10px rgba(229, 57, 53, 0.15);
+        }
+
+        .validation-msg {
+            text-align: center;
+            font-size: 13px;
+            color: var(--error);
+            margin-bottom: 16px;
+            min-height: 20px;
+            opacity: 0;
+            transition: opacity .3s ease;
+        }
+
+        .validation-msg.show {
+            opacity: 1;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #ffffff;
+            background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all .35s ease;
+        }
+
+        .btn-submit:hover {
+            box-shadow: 0 0 30px rgba(20, 48, 116, 0.3), 0 0 80px rgba(20, 48, 116, 0.1);
+            transform: translateY(-2px);
+            letter-spacing: 6px;
+        }
+
+        .btn-submit::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 40%;
+            height: 200%;
+            background: rgba(255,255,255,0.2);
+            transform: rotate(25deg);
+            transition: left .6s ease;
+        }
+
+        .btn-submit:hover::after {
+            left: 120%;
+        }
+
+        @media (max-width: 560px) {
+            .form-wrapper { padding: 36px 22px 28px; }
+            .heading-text { font-size: 26px; letter-spacing: 3px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-layer" id="bgLayer"></div>
+    <div class="scanline"></div>
+
+    <div class="form-wrapper">
+        <div class="header">
+            <div class="heading-text">Contact Us</div>
+            <div class="subtitle">Get In Touch</div>
+            <div class="divider"></div>
+        </div>
+
+        <form id="contactForm" onsubmit="return handleSubmit(event);">
+            <div class="field">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+            </div>
+            <div class="field">
+                <label for="surname">Surname</label>
+                <input type="text" id="surname" name="surname" placeholder="Enter your surname" required>
+            </div>
+            <div class="field">
+                <label for="phone">Contact Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="+27 000 000 0000">
+            </div>
+            <div class="field">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" required>
+            </div>
+            <div class="field">
+                <label for="message">Your Message</label>
+                <textarea id="message" name="message" placeholder="Type your message here..."></textarea>
+            </div>
+
+            <div class="privacy-text">
+                This form collects your name and email so that we can contact you. Check out our
+                <a href="#">privacy policy</a> for full details on how we use and protect
+                your submitted data.
+            </div>
+
+            <label class="consent" id="consentLabel">
+                <input type="checkbox" name="consent" id="consent">
+                <span class="checkmark"></span>
+                <span class="consent-text">I agree to the processing of my personal data and would like to receive relevant emails.</span>
+            </label>
+
+            <div class="validation-msg" id="valMsg"></div>
+            <button type="submit" class="btn-submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        (function(){
+            var bg = document.getElementById('bgLayer');
+            for(var i = 0; i < 40; i++){
+                var p = document.createElement('div');
+                p.classList.add('particle');
+                var size = Math.random() * 3 + 1;
+                p.style.width  = size + 'px';
+                p.style.height = size + 'px';
+                p.style.left   = Math.random() * 100 + '%';
+                p.style.animationDuration = (Math.random() * 12 + 8) + 's';
+                p.style.animationDelay    = (Math.random() * 10) + 's';
+                bg.appendChild(p);
+            }
+        })();
+
+        function handleSubmit(e) {
+            e.preventDefault();
+            var name    = document.getElementById('name').value.trim();
+            var surname = document.getElementById('surname').value.trim();
+            var phone   = document.getElementById('phone').value.trim();
+            var email   = document.getElementById('email').value.trim();
+            var message = document.getElementById('message').value.trim();
+            var consent = document.getElementById('consent').checked;
+            var valMsg  = document.getElementById('valMsg');
+
+            document.querySelectorAll('.invalid').forEach(function(el){ el.classList.remove('invalid'); });
+            valMsg.classList.remove('show');
+            valMsg.textContent = '';
+
+            var hasError = false;
+            if (!name)    { document.getElementById('name').classList.add('invalid'); hasError = true; }
+            if (!surname) { document.getElementById('surname').classList.add('invalid'); hasError = true; }
+            if (!email)   { document.getElementById('email').classList.add('invalid'); hasError = true; }
+            if (!consent) { document.getElementById('consentLabel').classList.add('invalid'); hasError = true; }
+
+            if (hasError) {
+                valMsg.textContent = 'Please complete the required fields and accept the consent checkbox.';
+                valMsg.classList.add('show');
+                return false;
+            }
+
+            var nl = '%0D%0A';
+            var thick = '===================================';
+            var thin  = '-----------------------------------';
+
+            var body = '';
+            body += thick + nl;
+            body += '   NEW CONTACT FORM SUBMISSION' + nl;
+            body += thick + nl;
+            body += nl;
+            body += '   Name:             ' + name + nl;
+            body += '   Surname:          ' + surname + nl;
+            body += '   Contact Number:   ' + (phone || 'Not provided') + nl;
+            body += '   Email Address:    ' + email + nl;
+            body += nl;
+            body += '   ' + thin + nl;
+            body += '   MESSAGE:' + nl;
+            body += '   ' + thin + nl;
+            body += nl;
+            body += '   ' + (message || 'No message provided.') + nl;
+            body += nl;
+            body += thick + nl;
+            body += '   Consent given to process personal data' + nl;
+            body += '   and receive relevant emails.' + nl;
+            body += thick + nl;
+            body += nl;
+            body += '   Sent via 4Sight Contact Form' + nl;
+
+            var subject = encodeURIComponent('New Contact Form Submission - ' + name + ' ' + surname);
+            window.location.href = 'mailto:Sales@4sight.cloud?subject=' + subject + '&body=' + body;
+            return false;
+        }
+    </script>
+</body>
+</html>
